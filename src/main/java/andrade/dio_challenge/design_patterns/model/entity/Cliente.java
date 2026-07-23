@@ -1,8 +1,10 @@
 package andrade.dio_challenge.design_patterns.model.entity;
 
 import jakarta.persistence.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Cliente {
@@ -50,4 +52,5 @@ public class Cliente {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
 }

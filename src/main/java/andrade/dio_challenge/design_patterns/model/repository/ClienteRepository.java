@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends CrudRepository<Cliente, Long> {
 
-    public Optional<Cliente> buscarClientePorNome(String nome);
+    Optional<Cliente> findByNome(String nome);
 
 }
