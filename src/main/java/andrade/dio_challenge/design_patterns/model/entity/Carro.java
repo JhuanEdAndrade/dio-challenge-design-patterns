@@ -1,5 +1,6 @@
 package andrade.dio_challenge.design_patterns.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,9 +15,21 @@ public class Carro {
     private String placa;
     private String ano;
 
+    public Carro() {
+    }
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public Long getId() {
         return id;

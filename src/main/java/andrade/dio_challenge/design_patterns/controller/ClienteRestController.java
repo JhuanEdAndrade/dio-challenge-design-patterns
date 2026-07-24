@@ -1,18 +1,17 @@
 package andrade.dio_challenge.design_patterns.controller;
 
 import andrade.dio_challenge.design_patterns.model.entity.Cliente;
-import andrade.dio_challenge.design_patterns.model.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import andrade.dio_challenge.design_patterns.service.ClienteService;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("clientes")
+@RequestMapping("/clientes")
 public class ClienteRestController {
 
     @Autowired
@@ -24,7 +23,7 @@ public class ClienteRestController {
 
     @GetMapping()
     public ResponseEntity<Iterable<Cliente>> listarTodosClientes() {
-        return ResponseEntity.ok(this.clienteService.findAll());
+        return ResponseEntity.ok(clienteService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -32,32 +31,27 @@ public class ClienteRestController {
         return ResponseEntity.ok(clienteService.findById(id));
     }
 
-    @GetMapping("/{nome}")
-    public ResponseEntity<Optional<Cliente>> buscarClientePorNome(@PathVariable String nome) {
-        return ResponseEntity.ok(clienteService.buscarClientePorNome(nome));
+    @GetMapping("/busca")
+    public ResponseEntity<Cliente> buscarClientePorNome(@RequestParam String name) {
+        return ResponseEntity.ok(clienteService.buscarClientePorNome(name));
     }
 
     @PostMapping
     public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente) {
-        Cliente clienteSalvo = clienteService.inserir(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
+        clienteService.inserir(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Cliente> atualizarClientePorId(@PathVariable Long id,
-                                                         @RequestBody Cliente cliente){
-        var verificarClienteExistente = this.clienteService.existsById(id);
-        if(verificarClienteExistente){
-            clienteService.atualizar(id, cliente);
-            return ResponseEntity.ok(cliente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+                                                         @RequestBody Map<String, Object> campos){
+        Cliente clienteAtualizado = clienteService.atualizarParcial(id, campos);
+        return ResponseEntity.ok(clienteAtualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClientePorId(@PathVariable Long id){
-        this.clienteService.deleteById(id);
+        clienteService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 

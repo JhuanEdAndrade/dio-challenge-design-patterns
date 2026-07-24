@@ -1,15 +1,17 @@
-package andrade.dio_challenge.design_patterns.service;
+package andrade.dio_challenge.design_patterns.service.implementation;
 
 import andrade.dio_challenge.design_patterns.model.entity.Carro;
 import andrade.dio_challenge.design_patterns.model.repository.CarroRepository;
+import andrade.dio_challenge.design_patterns.service.CarroService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class CarroServiceImpl implements CarroService{
+public class CarroServiceImpl implements CarroService {
 
+    @Autowired
     private final CarroRepository carroRepository;
 
     public CarroServiceImpl(CarroRepository carroRepository) {

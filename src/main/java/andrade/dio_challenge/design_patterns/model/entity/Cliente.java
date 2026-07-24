@@ -1,10 +1,9 @@
 package andrade.dio_challenge.design_patterns.model.entity;
 
 import jakarta.persistence.*;
-import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 public class Cliente {
@@ -13,13 +12,16 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String  nome;
+    private String name;
 
     private String cpf;
 
-    @ManyToOne
-    @JoinColumn(name = "carro_id")
-    private List<Carro> carros;
+    public Cliente() {
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
+    private List<Carro> carros = new ArrayList<>(); //Boa prática para evitar NullPointerException.
 
     public List<Carro> getCarros() {
         return carros;
@@ -37,12 +39,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCpf() {

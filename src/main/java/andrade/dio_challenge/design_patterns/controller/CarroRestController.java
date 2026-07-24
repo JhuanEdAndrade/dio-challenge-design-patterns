@@ -1,7 +1,6 @@
 package andrade.dio_challenge.design_patterns.controller;
 
 import andrade.dio_challenge.design_patterns.model.entity.Carro;
-import andrade.dio_challenge.design_patterns.model.repository.CarroRepository;
 import andrade.dio_challenge.design_patterns.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("clientes/carros")
+@RequestMapping("/clientes/carros")
 public class CarroRestController{
 
     @Autowired

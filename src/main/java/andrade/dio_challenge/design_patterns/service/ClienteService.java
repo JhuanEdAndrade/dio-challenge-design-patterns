@@ -3,6 +3,7 @@ package andrade.dio_challenge.design_patterns.service;
 import andrade.dio_challenge.design_patterns.model.entity.Cliente;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -10,9 +11,9 @@ public interface ClienteService {
 
     Cliente inserir(Cliente cliente);
 
-    void atualizar(Long id, Cliente cliente);
+    Cliente atualizarParcial(Long id, Map<String, Object> camposParaAtualizar);
 
-    Optional<Cliente> buscarClientePorNome(String nome);
+    Cliente buscarClientePorNome(String nome);
 
     Iterable<Cliente> findAll();
 
